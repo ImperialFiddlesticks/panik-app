@@ -1,0 +1,20 @@
+.submit-button {
+  background: #0d58ad;           /* matches your orange border vibe */
+  border: 3px solid #033268;
+  color: white;
+  font-weight: 700;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.06s ease, opacity 0.2s ease;
+}
+
+.submit-button:active {
+  transform: scale(0.99);
+}
+
+.submit-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
