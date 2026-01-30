@@ -1,0 +1,67 @@
+.address-screen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  min-height: 0;
+}
+
+.address-area {
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.address-title {
+  margin-bottom: 0;
+  color: #0d58ad;
+}
+
+.address-subtitle {
+  margin: 0;
+  opacity: 0.75;
+  color: #0d58ad;
+}
+
+.address-input {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 2px dashed #0d58ad;
+  font-size: 1rem;
+  background-color: white;
+  margin-top: 50px;
+  color: #0d58ad;
+}
+
+.address-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.address-suggestion {
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 2px solid #033268;
+  background: #0d58ad;
+  color: white;
+  cursor: pointer;
+}
+
+.address-suggestion.is-selected {
+  filter: brightness(1.1);
+  outline: 2px solid rgb(255, 166, 0);
+}
+
+.address-selected {
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: white;
+}

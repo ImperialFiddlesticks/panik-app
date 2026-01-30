@@ -2,6 +2,7 @@
 @import url("/src/components/SubmitButton/SubmitButton.css");
 @import url("/src/routes/map/map.css");
 @import url("/src/routes/photo/photo.css");
+@import url("/src/routes/address/address.css");
 
 :root {
   font-family:
@@ -13,9 +14,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
   color: rgba(63, 63, 63, 0.87);
-  background-color: #c7e3ff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,13 +22,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
 body {
   display: flex;
   justify-content: center;
+  min-height: 100vh;
+  align-items: center;
+  background-color: #c7e3ff;
 }
 .main-container {
   width: 90vw;
-  height: 90dvh;
+  height: min(90dvh, 1000px);
   max-width: 480px;
 
   background: #ffffff;
@@ -142,17 +149,4 @@ header button {
   font-size: 0.85rem;
   color: #777;
   margin-top: 12px;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
