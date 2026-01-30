@@ -4,6 +4,8 @@ import {
   useRouter,
   useRouterState,
 } from "@tanstack/react-router";
+import { parkingFacts } from "../lib/parkingFacts";
+import { useMemo } from "react";
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -13,6 +15,10 @@ function RootComponent() {
   const router = useRouter();
   const { location } = useRouterState();
   const isHome = location.pathname === "/";
+
+  const randomFact = useMemo(() => {
+    return parkingFacts[Math.floor(Math.random() * parkingFacts.length)];
+  }, [location.pathname]);
 
   return (
     <div className="main-container">
@@ -32,6 +38,9 @@ function RootComponent() {
       <main className="app-content">
         <Outlet />
       </main>
+      <footer className="app-footer">
+        <p>{randomFact}</p>
+      </footer>
     </div>
   );
 }

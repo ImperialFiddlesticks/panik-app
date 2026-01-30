@@ -42,13 +42,31 @@ function ResultScreen() {
 
     switch (signType) {
       case "free":
-        return { canPark: true, reason: "Free parking (example sign)" };
+        return {
+          canPark: true,
+          reason: "Free parking",
+          paidParking: false,
+        };
+
       case "paid":
-        return { canPark: true, reason: "Paid parking (example sign)" };
+        return {
+          canPark: true,
+          reason: "Paid parking",
+          paidParking: true,
+          price: 35,
+          timeInterval: "08–18",
+        };
+
       case "timelimit":
-        return { canPark: true, reason: "Time-limited parking (example sign)" };
+        return {
+          canPark: true,
+          reason: "Time-limited parking",
+          timeInterval: "08–17",
+        };
+
       case "noparking":
-        return { canPark: false, reason: "No parking (example sign)" };
+        return { canPark: false, reason: "No parking" };
+
       default:
         return { canPark: undefined, reason: "Could not recognize the sign." };
     }
@@ -152,41 +170,65 @@ function ResultScreen() {
   }
 
   const canPark = state.data?.canPark;
-  const reason =
-    state.data?.reason ?? state.data?.error ?? "";
+  const reason = state.data?.reason ?? state.data?.error ?? "";
+  const yesBut =
+    canPark === true &&
+    (state.data?.paidParking || Boolean(state.data?.timeInterval));
 
   return (
     <div className="result-container">
-      <h2>{title}</h2>
+      <h3>Can I park here?!</h3>
 
       {method === "address" && label && (
         <p style={{ marginTop: 0, opacity: 0.8 }}>{label}</p>
       )}
 
       <div
-        className={`result-card ${canPark === false ? "result-card--no" : "result-card--yes"}`}
+        className={`result-card ${
+          canPark === false
+            ? "result-card--no"
+            : yesBut
+              ? "result-card--maybe"
+              : "result-card--yes"
+        }`}
       >
         <div className="result-big">
           {canPark === true ? (
-            <img className="result-img" alt="Yes" src="/yes.png" />
+            yesBut ? (
+              <img className="result-img" alt="Yes, but..." src="/yesBut.png" />
+            ) : (
+              <img className="result-img" alt="Yes" src="/yes.png" />
+            )
           ) : canPark === false ? (
             <img className="result-img" alt="No" src="/no.png" />
           ) : (
             "🤔 Unclear"
           )}
         </div>
-        <p className="result-reason">{reason}</p>
-        {state.data?.paidParking && (
-          <p className="result-extra">
-            💳 Paid parking
-            {typeof state.data.price === "number" && (
-              <> - {state.data.price} kr/tim</>
-            )}
-            {state.data.timeInterval && (
-              <> ({state.data.timeInterval})</>
-            )}
-          </p>
-        )}
+
+        <div className="result-details">
+          {reason && <p className="result-reason">{reason}</p>}
+
+          {(state.data?.paidParking || state.data?.timeInterval) && (
+            <p className="result-extra">
+              {state.data?.paidParking && (
+                <>
+                  💳 Paid parking
+                  {typeof state.data?.price === "number" && (
+                    <> – {state.data.price} kr/tim</>
+                  )}
+                </>
+              )}
+
+              {state.data?.timeInterval && (
+                <>
+                  {state.data?.paidParking ? " " : "⏱️ "}(
+                  {state.data.timeInterval})
+                </>
+              )}
+            </p>
+          )}
+        </div>
 
         {typeof lat === "number" && typeof lng === "number" && (
           <p className="result-coords">

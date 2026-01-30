@@ -37,7 +37,8 @@ body {
 }
 .main-container {
   width: 90vw;
-  height: min(95dvh, 1200px);
+  /* height: min(95dvh, 1200px); */
+  height: auto;
   max-width: 480px;
 
   background: #ffffff;
@@ -150,4 +151,10 @@ header button {
   font-size: 0.85rem;
   color: #777;
   margin-top: 12px;
+}
+.app-footer {
+  text-align: center;
+  color: #0d58ad;
+  font-size: 0.8rem;
+  padding: 10px;
 }
