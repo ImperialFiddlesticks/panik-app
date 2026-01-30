@@ -3,6 +3,7 @@
 @import url("/src/routes/map/map.css");
 @import url("/src/routes/photo/photo.css");
 @import url("/src/routes/address/address.css");
+@import url("/src/routes/result/result.css");
 
 :root {
   font-family:
@@ -36,7 +37,7 @@ body {
 }
 .main-container {
   width: 90vw;
-  height: min(90dvh, 1000px);
+  height: min(95dvh, 1200px);
   max-width: 480px;
 
   background: #ffffff;
