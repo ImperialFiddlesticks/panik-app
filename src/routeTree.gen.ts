@@ -10,14 +10,19 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ResultIndexRouteImport } from './routes/result/index'
 import { Route as PhotoIndexRouteImport } from './routes/photo/index'
 import { Route as MapIndexRouteImport } from './routes/map/index'
 import { Route as AddressIndexRouteImport } from './routes/address/index'
-import { Route as ResultResultRouteImport } from './routes/result/result'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResultIndexRoute = ResultIndexRouteImport.update({
+  id: '/result/',
+  path: '/result/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PhotoIndexRoute = PhotoIndexRouteImport.update({
@@ -35,48 +40,43 @@ const AddressIndexRoute = AddressIndexRouteImport.update({
   path: '/address/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResultResultRoute = ResultResultRouteImport.update({
-  id: '/result/result',
-  path: '/result/result',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/result/result': typeof ResultResultRoute
   '/address/': typeof AddressIndexRoute
   '/map/': typeof MapIndexRoute
   '/photo/': typeof PhotoIndexRoute
+  '/result/': typeof ResultIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/result/result': typeof ResultResultRoute
   '/address': typeof AddressIndexRoute
   '/map': typeof MapIndexRoute
   '/photo': typeof PhotoIndexRoute
+  '/result': typeof ResultIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/result/result': typeof ResultResultRoute
   '/address/': typeof AddressIndexRoute
   '/map/': typeof MapIndexRoute
   '/photo/': typeof PhotoIndexRoute
+  '/result/': typeof ResultIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/result/result' | '/address/' | '/map/' | '/photo/'
+  fullPaths: '/' | '/address/' | '/map/' | '/photo/' | '/result/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/result/result' | '/address' | '/map' | '/photo'
-  id: '__root__' | '/' | '/result/result' | '/address/' | '/map/' | '/photo/'
+  to: '/' | '/address' | '/map' | '/photo' | '/result'
+  id: '__root__' | '/' | '/address/' | '/map/' | '/photo/' | '/result/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ResultResultRoute: typeof ResultResultRoute
   AddressIndexRoute: typeof AddressIndexRoute
   MapIndexRoute: typeof MapIndexRoute
   PhotoIndexRoute: typeof PhotoIndexRoute
+  ResultIndexRoute: typeof ResultIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -86,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/result/': {
+      id: '/result/'
+      path: '/result'
+      fullPath: '/result/'
+      preLoaderRoute: typeof ResultIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/photo/': {
@@ -109,22 +116,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AddressIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/result/result': {
-      id: '/result/result'
-      path: '/result/result'
-      fullPath: '/result/result'
-      preLoaderRoute: typeof ResultResultRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ResultResultRoute: ResultResultRoute,
   AddressIndexRoute: AddressIndexRoute,
   MapIndexRoute: MapIndexRoute,
   PhotoIndexRoute: PhotoIndexRoute,
+  ResultIndexRoute: ResultIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -96,7 +96,7 @@ function PhotoScreen() {
                     alt={sign.label}
                     className="example-image"
                   />
-                  <span>{sign.label}</span>
+                  {/* <span>{sign.label}</span> */}
                 </button>
               ))}
             </div>

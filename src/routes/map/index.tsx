@@ -36,40 +36,19 @@ function MapScreen() {
     );
   }, []);
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!selected) return;
 
     setIsLoading(true);
-    const params = new URLSearchParams();
-    params.append("lat", selected.lat.toString());
-    params.append("lng", selected.lng.toString());
-    
-    const request = new Request(`https://localhost:7113/parking?${params.toString()}`, {
-      method: "GET"
-    });
 
-    const response = await fetch(request);
-    const data = await response.json();
-
-    const resultParams = new URLSearchParams();
-    resultParams.append("method", "map");
-    resultParams.append("data", JSON.stringify(data));
-    
-    if (data.error) {
-      resultParams.append("error", data.error);
-    }
-    if (response.ok) {
-      setIsLoading(false);
-      //navigate here?
-    }
-    
     navigate({
-      to: '/result',
+      to: "/result",
       search: {
-        method: 'map',
-        data: JSON.stringify(data),
+        method: "map",
+        lat: selected.lat,
+        lng: selected.lng,
       },
-    })
+    });
   };
 
   return (
@@ -88,6 +67,7 @@ function MapScreen() {
           {selected && <Marker position={[selected.lat, selected.lng]} />}
         </MapContainer>
       </div>
+
       <div className="screen-submit">
         <SubmitButton
           label="Can I park here?!"
