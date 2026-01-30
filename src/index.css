@@ -1,10 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap");
 @import url("/src/components/SubmitButton/SubmitButton.css");
 @import url("/src/routes/map/map.css");
 @import url("/src/routes/photo/photo.css");
 
 :root {
-  font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    "DM Sans",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -18,40 +23,49 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body{
-  display:flex;
+body {
+  display: flex;
   justify-content: center;
 }
-.main-container{
+.main-container {
   width: 90vw;
-  height: 90dvh;   
-  max-width: 480px; 
- 
+  height: 90dvh;
+  max-width: 480px;
+
   background: #ffffff;
   overflow: hidden;
   border-radius: 20px;
-  border:3px solid rgb(255, 166, 0);
+  border: 3px solid rgb(255, 166, 0);
+
+  display: flex;
+  flex-direction: column;
 }
 
-header{
+.app-content {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+header {
   height: 80px;
-  display:flex;
+  display: flex;
   justify-content: space-between;
   /* border-bottom:2px dashed rgb(255, 166, 0); */
-  
-  padding-bottom:10px;
+
+  padding-bottom: 10px;
 }
 header button {
   background-color: transparent;
-  border:none;
+  border: none;
 }
-.header-logo{
-  height:100%;
+.header-logo {
+  height: 100%;
 }
-.settings-icon{
-  height:30px;
-  width:30px;
-  margin:10px;
+.settings-icon {
+  height: 30px;
+  width: 30px;
+  margin: 10px;
 }
 
 .home-container {
@@ -68,13 +82,12 @@ header button {
   margin-bottom: 24px;
 }
 
-.home-headline{
+.home-headline {
   margin-top: 20px;
-  width:80%;
-  
+  width: 80%;
 }
-.home-subheading{
-  width:75%;
+.home-subheading {
+  width: 75%;
 }
 .home-options {
   display: flex;
@@ -90,15 +103,15 @@ header button {
   display: flex;
   align-items: center;
   gap: 16px;
-  
+
   border-radius: 12px;
-text-decoration: none;
-color:white;
+  text-decoration: none;
+  color: white;
   background: #0d58ad;
-  border:4px solid #033268;
+  border: 4px solid #033268;
   cursor: pointer;
   text-align: left;
-  width: calc(100% - 32px); 
+  width: calc(100% - 32px);
   max-width: 300px;
   height: clamp(70px, 15vw, 100px);
   padding: clamp(12px, 3vw, 16px);
@@ -110,10 +123,8 @@ color:white;
 }
 
 .option-icon {
- 
   width: clamp(2rem, 6vw, 3rem);
   height: clamp(2rem, 6vw, 3rem);
-
 }
 
 .option-text h2 {
@@ -123,7 +134,7 @@ color:white;
 .option-text p {
   margin: 4px 0 0;
   color: #ffffff;
-  font-size:0.9rem;
+  font-size: 0.9rem;
 }
 
 .home-footer {
@@ -132,8 +143,6 @@ color:white;
   color: #777;
   margin-top: 12px;
 }
-
-
 
 @media (prefers-color-scheme: light) {
   :root {
