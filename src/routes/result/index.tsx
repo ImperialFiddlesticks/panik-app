@@ -8,6 +8,7 @@ type ParkingApiResponse = {
   paidParking?: boolean;
   price?: number;
   timeInterval?: string;
+  address?: string;
   reason?: string;
   error?: string;
 };
@@ -154,6 +155,7 @@ function ResultScreen() {
   const canPark = state.data?.canPark;
   const reason =
     state.data?.reason ?? state.data?.error ?? "";
+  const address = state.data?.address;
 
   return (
     <div className="result-container">
@@ -190,7 +192,7 @@ function ResultScreen() {
 
         {typeof lat === "number" && typeof lng === "number" && (
           <p className="result-coords">
-            {lat.toFixed(5)}, {lng.toFixed(5)}
+            {address}
           </p>
         )}
       </div>
