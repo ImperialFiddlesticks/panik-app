@@ -40,11 +40,36 @@ function MapScreen() {
     if (!selected) return;
 
     setIsLoading(true);
-
-    navigate({
-      to: "/result",
-      search: { method: "map", lat: selected.lat, lng: selected.lng },
+    const params = new URLSearchParams();
+    params.append("lat", selected.lat.toString());
+    params.append("lng", selected.lng.toString());
+    
+    const request = new Request(`https://localhost:7113/parking?${params.toString()}`, {
+      method: "GET"
     });
+
+    const response = await fetch(request);
+    const data = await response.json();
+
+    const resultParams = new URLSearchParams();
+    resultParams.append("method", "map");
+    resultParams.append("data", JSON.stringify(data));
+    
+    if (data.error) {
+      resultParams.append("error", data.error);
+    }
+    if (response.ok) {
+      setIsLoading(false);
+      //navigate here?
+    }
+    
+    navigate({
+      to: '/result',
+      search: {
+        method: 'map',
+        data: JSON.stringify(data),
+      },
+    })
   };
 
   return (
