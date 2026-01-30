@@ -162,11 +162,13 @@ function ResultScreen() {
         className={`result-card ${allowed === false ? "result-card--no" : "result-card--yes"}`}
       >
         <div className="result-big">
-          {allowed === true
-            ? "✅ Yes"
-            : allowed === false
-              ? "❌ No"
-              : "🤔 Unclear"}
+          {allowed === true ? (
+            <img className="result-img" alt="Yes" src="/yes.png" />
+          ) : allowed === false ? (
+            <img className="result-img" alt="No" src="/no.png" />
+          ) : (
+            "🤔 Unclear"
+          )}
         </div>
         <p className="result-reason">{reason}</p>
 

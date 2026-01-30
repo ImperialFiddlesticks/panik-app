@@ -2,19 +2,18 @@
   height: 100%;
   padding: 16px;
   color: #0d58ad;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
 }
 
 .result-card {
   border-radius: 16px;
   padding: 16px;
-  border: 3px solid #033268;
-  background: #0d58ad;
-  color: white;
-}
-
-.result-card--no {
-  background: #b91c1c;
-  border-color: #7f1d1d;
+  /* border: 3px dashed #0d58ad; */
+  background: white;
+  color: #0d58ad;
 }
 
 .result-card--error {
@@ -37,4 +36,8 @@
   margin-top: 10px;
   opacity: 0.8;
   font-size: 0.9rem;
+}
+
+.result-img {
+  width: 300px;
 }
