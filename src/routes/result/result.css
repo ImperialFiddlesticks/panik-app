@@ -20,8 +20,9 @@
 }
 
 .result-card--error {
-  background: #111827;
-  border-color: #374151;
+  background: #ffffff;
+
+  border: 2px dashed #0d58ad;
 }
 
 .result-big {
