@@ -4,10 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 type Method = "map" | "address" | "photo";
 
 type ParkingApiResponse = {
-  allowed?: boolean;
+  canPark?: boolean;
+  paidParking?: boolean;
+  price?: number;
+  timeInterval?: string;
   reason?: string;
   error?: string;
-  // add other fields your backend returns
 };
 
 type ResultState =
@@ -40,15 +42,15 @@ function ResultScreen() {
 
     switch (signType) {
       case "free":
-        return { allowed: true, reason: "Free parking (example sign)" };
+        return { canPark: true, reason: "Free parking (example sign)" };
       case "paid":
-        return { allowed: true, reason: "Paid parking (example sign)" };
+        return { canPark: true, reason: "Paid parking (example sign)" };
       case "timelimit":
-        return { allowed: true, reason: "Time-limited parking (example sign)" };
+        return { canPark: true, reason: "Time-limited parking (example sign)" };
       case "noparking":
-        return { allowed: false, reason: "No parking (example sign)" };
+        return { canPark: false, reason: "No parking (example sign)" };
       default:
-        return { allowed: undefined, reason: "Could not recognize the sign." };
+        return { canPark: undefined, reason: "Could not recognize the sign." };
     }
   }, [method, signType]);
 
@@ -94,6 +96,7 @@ function ResultScreen() {
 
         const text = await res.text();
         const data: ParkingApiResponse = text ? JSON.parse(text) : {};
+        console.log(data);
 
         if (!res.ok) {
           const msg = data?.error ?? `Request failed (${res.status})`;
@@ -101,7 +104,9 @@ function ResultScreen() {
           return;
         }
 
-        if (!cancelled) setState({ status: "success", data });
+        if (!cancelled) {
+          setState({ status: "success", data });
+        }
       } catch (e) {
         const msg = e instanceof Error ? e.message : "Network error";
         if (!cancelled) setState({ status: "error", error: msg });
@@ -139,16 +144,16 @@ function ResultScreen() {
           <h3>Couldn’t check parking</h3>
           <p>{state.error}</p>
           <p style={{ opacity: 0.7, fontSize: "0.9rem" }}>
-            If you’re running locally, this may be a CORS or HTTPS issue.
+            Please try again later.
           </p>
         </div>
       </div>
     );
   }
 
-  const allowed = state.data?.allowed;
+  const canPark = state.data?.canPark;
   const reason =
-    state.data?.reason ?? state.data?.error ?? "No reason provided.";
+    state.data?.reason ?? state.data?.error ?? "";
 
   return (
     <div className="result-container">
@@ -159,18 +164,29 @@ function ResultScreen() {
       )}
 
       <div
-        className={`result-card ${allowed === false ? "result-card--no" : "result-card--yes"}`}
+        className={`result-card ${canPark === false ? "result-card--no" : "result-card--yes"}`}
       >
         <div className="result-big">
-          {allowed === true ? (
+          {canPark === true ? (
             <img className="result-img" alt="Yes" src="/yes.png" />
-          ) : allowed === false ? (
+          ) : canPark === false ? (
             <img className="result-img" alt="No" src="/no.png" />
           ) : (
             "🤔 Unclear"
           )}
         </div>
         <p className="result-reason">{reason}</p>
+        {state.data?.paidParking && (
+          <p className="result-extra">
+            💳 Paid parking
+            {typeof state.data.price === "number" && (
+              <> - {state.data.price} kr/tim</>
+            )}
+            {state.data.timeInterval && (
+              <> ({state.data.timeInterval})</>
+            )}
+          </p>
+        )}
 
         {typeof lat === "number" && typeof lng === "number" && (
           <p className="result-coords">
