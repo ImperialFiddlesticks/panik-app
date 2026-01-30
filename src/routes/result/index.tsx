@@ -8,6 +8,7 @@ type ParkingApiResponse = {
   paidParking?: boolean;
   price?: number;
   timeInterval?: string;
+  address?: string;
   reason?: string;
   error?: string;
 };
@@ -174,7 +175,7 @@ function ResultScreen() {
   const yesBut =
     canPark === true &&
     (state.data?.paidParking || Boolean(state.data?.timeInterval));
-
+  const address = state.data?.address;
   return (
     <div className="result-container">
       <h3>Can I park here?!</h3>
@@ -231,9 +232,7 @@ function ResultScreen() {
         </div>
 
         {typeof lat === "number" && typeof lng === "number" && (
-          <p className="result-coords">
-            {lat.toFixed(5)}, {lng.toFixed(5)}
-          </p>
+          <p className="result-coords">{address}</p>
         )}
       </div>
     </div>
